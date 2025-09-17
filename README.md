@@ -65,4 +65,62 @@ Describe **how the system should perform** (quality attributes).
 - **HLD** → Big picture (what components exist & how they interact).  
 - **LLD** → Detailed design (how each component is implemented).  
 - **Functional requirements** → Features (What).  
-- **Non-functional requirements** → Qualities (How well). 
+- **Non-functional requirements** → Qualities (How well).
+
+# 🚀 Scalability – Summary
+
+Scalability is the ability of a system to handle **increasing users, requests, or data** by adding resources.  
+
+---
+
+## 🔹 Key Techniques & Technologies
+
+1. **Load Balancing**  
+   - Distributes traffic across multiple servers.  
+   - Tech: **NGINX, HAProxy, AWS ELB**  
+
+2. **Caching**  
+   - Stores frequently accessed data in memory for fast retrieval.  
+   - Tech: **Redis, Memcached, CDN (Cloudflare, AWS CloudFront)**  
+
+3. **Database Scaling**  
+   - Make databases handle more load using:  
+     - **Replication** (read replicas)  
+     - **Sharding** (split data across servers)  
+   - Tech: **PostgreSQL, MySQL, MongoDB, Cassandra**  
+
+4. **Asynchronous Processing (Queues)**  
+   - Offload heavy tasks to background workers.  
+   - Tech: **Kafka, RabbitMQ, Amazon SQS**  
+
+5. **Microservices Architecture**  
+   - Break system into smaller services, scale each independently.  
+   - Tech: **Docker, Kubernetes, Istio**  
+
+6. **Auto Scaling (Cloud Infra)**  
+   - Automatically add/remove servers based on traffic.  
+   - Tech: **AWS Auto Scaling, GCP Instance Groups, Azure VM Scale Sets**  
+
+7. **Content Delivery Network (CDN)**  
+   - Deliver static content (images, videos, CSS/JS) from servers close to users.  
+   - Tech: **Cloudflare, AWS CloudFront, Akamai**  
+
+8. **API Gateways & Reverse Proxies**  
+   - Manage routing, caching, and rate limiting.  
+   - Tech: **Kong, NGINX, AWS API Gateway**  
+
+9. **Distributed Data Stores**  
+   - Handle massive data across multiple regions.  
+   - Tech: **Cassandra, CockroachDB, DynamoDB**  
+
+10. **Monitoring & Performance Tools**  
+    - Detect bottlenecks and scale accordingly.  
+    - Tech: **Prometheus, Grafana, ELK Stack, Datadog**  
+
+---
+
+## ✅ Recap
+- **Vertical Scaling** → Add more power (CPU/RAM) to one server.  
+- **Horizontal Scaling** → Add more servers and distribute load.  
+- Modern systems use a **mix of both**, with load balancing, caching, database scaling, and cloud auto scaling.  
+
