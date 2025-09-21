@@ -124,3 +124,78 @@ Scalability is the ability of a system to handle **increasing users, requests, o
 - **Horizontal Scaling** → Add more servers and distribute load.  
 - Modern systems use a **mix of both**, with load balancing, caching, database scaling, and cloud auto scaling.  
 
+
+# 🚦 Rate Limiting & Throttling
+
+## 📌 What is Rate Limiting?
+Rate limiting is a mechanism to **control the number of requests** a user/system can make to an API or service within a defined time period.  
+Example: **100 requests per minute per user**.
+
+### ✅ Why use it?
+- Prevent abuse (DDoS, spamming APIs)  
+- Ensure fair usage across users  
+- Reduce server overload & improve stability  
+- Control infrastructure costs  
+
+---
+
+## 🔹 Throttling vs Rate Limiting
+- **Rate Limiting** → Restrict max requests in a given time window (**hard cap**)  
+- **Throttling** → Control *speed/frequency* of requests (**slows down but doesn’t fully block**)  
+
+---
+
+## 🔹 Common Algorithms
+1. **Fixed Window Counter** → Simple, but can allow bursts at edges  
+2. **Sliding Window** → Smoother, more accurate  
+3. **Token Bucket** → Tokens refill at a fixed rate, supports short bursts  
+4. **Leaky Bucket** → Requests processed at a constant rate, excess dropped/queued  
+
+---
+
+## 🔹 Implementation Areas
+
+### 🔸 Frontend
+- Debouncing & throttling API calls  
+- Disabling buttons after click  
+- Tracking request count in local state  
+
+⚠️ Only for **UX improvement** (not security)
+
+### 🔸 Backend
+- Middleware-based (e.g., `express-rate-limit`)  
+- In-memory (for small apps)  
+- Distributed store (Redis/Memcached) for scalability  
+- API Gateway / Load Balancer (NGINX, AWS API Gateway, Cloudflare)  
+
+✅ Enforces **real protection**
+
+---
+
+## 🔹 Example Code
+
+### Frontend (JS Throttle Example)
+```javascript
+let lastCall = 0;
+function callApi() {
+  const now = Date.now();
+  if (now - lastCall < 1000) {
+    console.log("Wait before calling again");
+    return;
+  }
+  lastCall = now;
+  fetch("/api/data");
+}
+
+
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100, // limit each IP to 100 requests per minute
+  message: "Too many requests, please try again later."
+});
+
+app.use("/api/", limiter);
+
+
